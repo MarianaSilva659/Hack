@@ -1,4 +1,5 @@
 
+
 <script>
 export default {
   data() {
@@ -18,7 +19,8 @@ export default {
       }
     },
     irParaCriarRoom(){
-      this.$router.push('/criar-room');
+      console.log("aaaaaaaa");
+      this.$router.push('/create');
     }
     }
 }
@@ -61,7 +63,10 @@ export default {
 </template>
 
 
+
+
 <style scoped>
+@import url('../assets/w3.css');
 
 .centered {
   text-align: center; /* Centraliza o conteúdo horizontalmente */
@@ -169,7 +174,6 @@ button:hover {
   color: rgb(0, 0, 0);
   transform: translateY(-140px);
 }
-@import url('../assets/w3.css');
 
 
 </style>

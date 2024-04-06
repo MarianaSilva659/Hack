@@ -1,17 +1,13 @@
 <template>
-  <HelloWorld/>
+  <router-view></router-view>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: 'App'
 }
 </script>
 
-
+<style>
+/* Adicione estilos globais aqui, se necessário */
+</style>
