@@ -16,44 +16,24 @@
   <label style="font-size: 60px;">Choose the categories you prefer:</label>
 
   <fieldset>
-        <div class="select">
-          <div
-      class="selected"
-      data-one="Movie"
-      data-two="Game">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 512 512"
-              class="arrow"
-            >
-              <path
-                d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
-              ></path>
-            </svg>
-          </div>
-          <div class="options">
-            <div title="Movie">
-              <input id="Movie" name="option" type="radio" v-model="opcao" value="Movie" />
-              <label class="option" for="Movie" data-txt="Movie"></label>
-            </div>
-            <div title="Game">
-              <input id="Game" name="option" type="radio" v-model="opcao" value="Game" />
-              <label class="option" for="Game" data-txt="Game"></label>
-            </div>
-          </div>
-
+      <legend style="font-size: 40px;">Categories</legend>
+      <div class="options-container">
+        <div v-for="(label, value, index) in category" :key="value" class="option-item" :style="{ 'margin-bottom': index % 2 === 0 ? '10px' : '0' }">
+          <input class="w3-check" :id="value" type="checkbox" :name="value" :value="value" style="font-size: 20px;" v-model="categoryOpcao" />
+          <label :for="value" style="font-size: 30px; margin-left: 10px;">{{ label }}</label>
         </div>
-      </fieldset>
-      <fieldset>
-    <legend style="font-size: 40px;">Styles</legend>
-    <div class="options-container">
+      </div>
+    </fieldset>
+    
+    <fieldset>
+      <legend style="font-size: 40px;">Styles</legend>
+      <div class="options-container">
         <div v-for="(label, value, index) in options" :key="value" class="option-item" :style="{ 'margin-bottom': index % 2 === 0 ? '10px' : '0' }">
-            <input class="w3-check" :id="value" type="checkbox" :name="value" :value="value" style="font-size: 20px;" v-model="opcao" />
-            <label :for="value" style="font-size: 30px; margin-left: 10px;">{{ label }}</label>
+          <input class="w3-check" :id="value" type="checkbox" :name="value" :value="value" style="font-size: 20px;" v-model="opcao" />
+          <label :for="value" style="font-size: 30px; margin-left: 10px;">{{ label }}</label>
         </div>
-    </div>
-</fieldset>
+      </div>
+    </fieldset>
       <br/>
       <div class="button-group">
           <button @click="waitGroup">Create Room</button>
@@ -68,7 +48,8 @@
 export default {
   data() {
     return {
-      opcao: '', // Valor padrão
+      categoryOpcao: [], // Array para armazenar opções selecionadas de categorias
+      opcao: [],
       numero: 0,
       options: {
         'action': 'Action',
@@ -81,8 +62,13 @@ export default {
         'thriller': 'Thriller',
         'animation': 'Animation',
         'documentary': 'Documentary'
+      },
+      category:{
+        'movie':'Movie',
+        'game': 'Game'
       }
     };
+
   },
   methods: {
     submitTodo() {
@@ -93,6 +79,9 @@ export default {
     },
     waitGroup(){
       console.log("aaaaaaaa");
+      console.log("ccc", this.categoryOpcao);
+      console.log("ooo", this.opcao);
+
       this.$router.push('/waitgroup');
       console.log('Opção selecionada:', this.opcao);
       console.log("sss", this.numero);
