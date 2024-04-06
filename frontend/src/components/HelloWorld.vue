@@ -1,58 +1,175 @@
-<template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
-</template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  data() {
+    return {
+      imagemHeight:0,
+      grupo: ''
+      
+    }
+  },
+  methods: {
+    updateGrupo(event) {
+      // Verifica se a tecla pressionada foi "Enter"
+      if (event.key === 'Enter') {
+        this.grupo = event.target.value;
+        // Navegar para a nova página
+      //  router.push('/loadPag');
+      }
+    },
+    irParaCriarRoom(){
+      this.$router.push('/criar-room');
+    }
+    }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<template>
+  <div class="w3-card-4">
+    <!-- Cabeçalho -->
+    <header class="w3-container" style="position: relative;background-color: #222222;">
+      <div><img src="../assets/logo.jpeg" alt="Imagem de Exemplo" class="w3-image" ref="imag">
+      </div>
+      </header>
+  </div>
+
+  <div class="form-control">
+    <input type="text" v-model="grupo" @keydown.enter="updateGrupo" required>
+    <label>
+        <span style="transition-delay:0ms">E</span>
+        <span style="transition-delay:50ms">n</span>
+        <span style="transition-delay:100ms">t</span>
+        <span style="transition-delay:150ms">e</span>
+        <span style="transition-delay:200ms">r</span>
+        <span style="transition-delay:250ms"> </span>
+        <span style="transition-delay:300ms">R</span>
+        <span style="transition-delay:350ms">o</span>
+        <span style="transition-delay:400ms">o</span>
+        <span style="transition-delay:450ms">m</span>
+        <span style="transition-delay:500ms"> </span>
+        <span style="transition-delay:550ms">I</span>
+        <span style="transition-delay:600ms">D</span>
+
+
+
+    </label>
+</div>
+  <div>
+      <button @click="irParaCriarRoom">Create Room</button>
+  </div>
+  
+</template>
+
+
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+
+.centered {
+  text-align: center; /* Centraliza o conteúdo horizontalmente */
+  font-size: 100px;
+  margin: 100px; 
+  font-family: Gill Sans;
+  background-image: linear-gradient(to right, 
+        #FF7F7F, #FF6666, #FF4C4C, #FF3333, #FF1919, #FF0000);
+      -webkit-background-clip: text; /* Para navegadores WebKit (Safari, Chrome) */
+      background-clip: text;
+      color: transparent; /* Torna o texto invisível */
+      font-size: 72px; /* Tamanho da fonte */
+      font-weight: bold; /* Peso da fonte */
+      font-family: sans-serif; /* Família da fonte */
+      text-align: center;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+button {
+  width: 10em;
+  position: relative;
+  height: 3.5em;
+  border: 3px ridge #000000;
+  outline: none;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  transition: 1s;
+  border-radius: 0.3em;
+  font-size: 100px;
+  cursor: pointer;
+  margin: 200px auto; /* Centraliza o botão horizontalmente */
+  display: block; /* Garante que o botão ocupe toda a largura disponível */
 }
-li {
+
+button::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+button::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 80%;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  transition: 0.5s;
+}
+
+button:hover::before, button:hover::after {
+  transform: scale(0)
+}
+
+button:hover {
+  box-shadow: inset 0px 0px 25px #000000;
+}
+
+.form-control {
+  position: relative;
+  margin: 100px auto; /* Define margens superior e inferior de 40px e margem automática nos lados, o que centraliza horizontalmente */
+  width: 800px;
+  text-align: center; /* Centraliza o conteúdo dentro do elemento */
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #0f0e0e solid;
+  display: block;
+  width: 100%;
+  padding: 25px 0;
+  font-size: 100px;
+  color: #080808;
+}
+
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: rgb(0, 0, 0);
+}
+
+.form-control label {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  pointer-events: none;
+}
+
+.form-control label span {
   display: inline-block;
-  margin: 0 10px;
+  font-size: 100px;
+  min-width: 45px;
+  color: #000000;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-a {
-  color: #42b983;
+
+.form-control input:focus+label span,
+.form-control input:valid+label span {
+  color: rgb(0, 0, 0);
+  transform: translateY(-140px);
 }
+@import url('../assets/w3.css');
+
+
 </style>
