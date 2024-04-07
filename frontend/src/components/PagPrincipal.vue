@@ -4,6 +4,11 @@
             <img src="../assets/logo.jpeg" alt="Logo" class="w3-image" ref="imag">
         </div>
     </header>
+    <div v-if="index === maxIndex && movies[index].num === numgroup" class="centered-message">
+  <h1 class="chosen-film-text" style="  font-size: 60px; font-weight: bold;
+">This film matched!!!</h1>
+</div>
+
 <div> <h1 class="fas fa-times" style="position:absolute;font-size: 100px ;left: 20%;  top: 50%; transform: translateY(-50%); font-weight: bold ;color: #f23f3f;" aria-role="presentation" aria-label="CROSS MARK">X</h1>
 </div>
     <div class="centered">
@@ -20,13 +25,13 @@
 
 
             <div class="textBox">
-                <p class="text titulo">{{ tituloFilme }}<br></p>
+                <p class="text titulo">{{ movies[index].tituloFilme }}<br></p>
                 <p class="text sinopse">Sinopse<br><br>
-                    {{ sinops }}</p>
+                    {{ movies[index].sinops }}</p>
                 <div class="categories-actors">
                     <div class="text categorias">
                         <span style="    font-weight: bold;">Categorias</span><br><br>
-                        <span v-for="(cat, index) in category" :key="index">{{ cat }}<br></span>
+                        <span v-for="(cat, index) in movies[index].category" :key="index">{{ cat }}<br></span>
                     </div>
                 </div>
             </div>
@@ -39,9 +44,120 @@
         </div>
         <div class="shadow"></div>
     </div>
+    <div class="button-group">
+          <button @click="voltarInicial">Voltar</button>
+        </div>
 </template>
 
 <style scoped>
+.centered-message {
+  position: absolute;
+  top: 20%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+button {
+  width: 10em;
+  position: relative;
+  height: 3.5em;
+  border: 3px ridge #000000;
+  outline: none;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  transition: 1s;
+  border-radius: 0.3em;
+  font-size: 40px;
+  cursor: pointer;
+  margin: 0px auto; /* Centraliza o botão horizontalmente */
+  display: block; /* Garante que o botão ocupe toda a largura disponível */
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+button::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 80%;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  transition: 0.5s;
+}
+
+button:hover::before, button:hover::after {
+  transform: scale(0)
+}
+
+button:hover {
+  box-shadow: inset 0px 0px 25px #000000;
+}
+
+.form-control {
+  position: relative;
+  margin: 100px auto; /* Define margens superior e inferior de 40px e margem automática nos lados, o que centraliza horizontalmente */
+  width: 800px;
+  text-align: center; /* Centraliza o conteúdo dentro do elemento */
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #0f0e0e solid;
+  display: block;
+  width: 100%;
+  padding: 25px 0;
+  font-size: 40px;
+  color: #080808;
+}
+
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: rgb(0, 0, 0);
+}
+
+.form-control label {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  pointer-events: none;
+}
+
+.form-control label span {
+  display: inline-block;
+  font-size: 40px;
+  min-width: 45px;
+  color: #000000;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-control input:focus+label span,
+.form-control input:valid+label span {
+  color: rgb(0, 0, 0);
+  transform: translateY(-140px);
+}
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Distribui os elementos uniformemente ao longo do espaço disponível */
+}
+
+.button-group button {
+  flex: 1; /* Ocupa todo o espaço disponível */
+  margin: 0 5px; /* Adiciona margem entre os botões */
+}
 
 .container {
   position: absolute;
@@ -211,15 +327,39 @@
 export default {
     data() {
         return {
-            category: ["Comédia", "Musical", "Romance"],
-            elenco: ["Meryl Streep", "Pierce Brosnan", "Amanda Seyfried", "Colin Firth"],
-            tituloFilme: "Mamammia",
-            sinops : "Na ilha grega de Kalokairi, Sophie (Amanda Seyfried) está prestes a se casar e, sem saber quem é seu pai, envia convites para Sam Carmichael (Pierce Brosnan), Harry Bright (Colin Firth) e Bill Anderson (Stellan Skarsgard). Eles vêm de diferentes partes do mundo, dispostos a reencontrar a mulher de suas vidas: Donna (Meryl Streep), mãe de Sophie. Ao chegarem Donna é surpreendida, tendo que inventar desculpas para não revelar quem é o pai de Sophie. ",
-            startX: 0,
-            startY:0
+          movies: [
+                {
+                    category: ["Comédia", "Musical", "Romance"],
+                    tituloFilme: "Mamammia",
+                    sinops: "Na ilha grega de Kalokairi, Sophie (Amanda Seyfried) está prestes a se casar e, sem saber quem é seu pai, envia convites para Sam Carmichael (Pierce Brosnan), Harry Bright (Colin Firth) e Bill Anderson (Stellan Skarsgard). Eles vêm de diferentes partes do mundo, dispostos a reencontrar a mulher de suas vidas: Donna (Meryl Streep), mãe de Sophie. Ao chegarem Donna é surpreendida, tendo que inventar desculpas para não revelar quem é o pai de Sophie.",
+                    love: false, // Inicializa como não amado
+                    reject: false, // Inicializa como não rejeitado
+                    startX: 0,
+                    startY: 0,
+                    num: 2
+                },
+                {
+                    category: ["Comédia", "Musical", "Romance"],
+                    tituloFilme: "AAAAAAAAAAAAAAAAAAA",
+                    sinops: "Na ilha grega de Kalokairi, Sophie (Amanda Seyfried) está prestes a se casar e, sem saber quem é seu pai, envia convites para Sam Carmichael (Pierce Brosnan), Harry Bright (Colin Firth) e Bill Anderson (Stellan Skarsgard). Eles vêm de diferentes partes do mundo, dispostos a reencontrar a mulher de suas vidas: Donna (Meryl Streep), mãe de Sophie. Ao chegarem Donna é surpreendida, tendo que inventar desculpas para não revelar quem é o pai de Sophie.",
+                    love: false, // Inicializa como não amado
+                    reject: false, // Inicializa como não rejeitado
+                    startX: 0,
+                    startY: 0,
+                    num:2
+                },
+                // Outros filmes...
+            ],
+            index : 0,
+            numgroup : 2
         };
+        
     },
-
+    computed: {
+        maxIndex() {
+            return this.movies.length - 2;
+        }
+    },
     methods: {
         handleMouseDown(event) {
             this.dragging = true;
@@ -239,7 +379,18 @@ export default {
 
             // Determine the direction of movement
             const direction = this.calculateDirection(deltaX, deltaY);
+            if (direction == "left"){
+              this.movies[this.index].reject = true;
+            }
+            if (direction == "right"){
+              this.movies[this.index].love = true;
+              this.movies[this.index].num += 1;
+
+              console.log("qqq",this.movies[this.index].love )
+            }
             console.log("Direction:", direction);
+            if(this.index < this.maxIndex)
+              this.index += 1;
 
             // Update start positions
             this.startX = event.clientX;
@@ -256,7 +407,10 @@ export default {
             } else {
                 return deltaY > 0 ? "down" : "up";
             }
-        }
+        },
+        voltarInicial(){
+      this.$router.push('/');
+    }
     }
 }
 
