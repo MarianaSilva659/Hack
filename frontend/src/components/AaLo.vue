@@ -4,7 +4,7 @@
             <img src="../assets/logo.jpeg" alt="Logo" class="w3-image" ref="imag">
         </div>
     </header>
-    <div v-if="index === maxIndex && movies[index].num === numgroup" class="centered-message">
+    <div >
   <h1 class="chosen-film-text" style="  font-size: 60px; font-weight: bold;
 ">This film matched!!!</h1>
 </div>
@@ -325,15 +325,6 @@ button:hover {
 
 <script>
 export default {
-  watch: {
-    // Use um watcher para verificar quando a condição é atendida
-    index: function(newIndex) {
-      if (newIndex === this.maxIndex && this.movies[newIndex].num === this.numgroup) {
-        // Use this.$router.push para mudar de página quando a condição é atendida
-        this.$router.push('/outra-pagina');
-      }
-    }
-  },
     data() {
         return {
           movies: [
