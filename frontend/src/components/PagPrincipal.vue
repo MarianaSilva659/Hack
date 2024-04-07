@@ -13,9 +13,9 @@
         @mousemove="handleMouseMove"
         @mouseup="handleMouseUp"
         @mouseleave="handleMouseUp"
-    >
+        >
         <div class="card">
-            <img class="img" src="../assets/mamamia.png"alt="Sua Imagem" />
+            <img class="img" src="../assets/mamamia.png" alt="Sua Imagem" />
 
 
             <div class="textBox">
@@ -31,11 +31,108 @@
             </div>
         </div>
     </div>
-
+    <div class="preloader">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="shadow"></div>
     </div>
 </template>
 
 <style scoped>
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.preloader {
+    position:absolute;
+    right: 20%; /* Posicionado à direita */
+    top: 50%; /* Centralizado verticalmente */
+    transform: translateY(-50%);}
+
+@keyframes rotate {
+  50% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+.preloader span {
+  --c: #f23f3f;
+  position: absolute;
+  display: block;
+  height: 64px;
+  width: 64px;
+  background: var(--c);
+  border: 1px solid var(--c);
+  border-radius: 100%;
+}
+
+.preloader span:nth-child(1) {
+  transform: translate(-28px, -28px);
+}
+
+@keyframes shape_1 {
+  60% {
+    transform: scale(0.4);
+  }
+}
+
+.preloader span:nth-child(2) {
+  transform: translate(28px, -28px);
+}
+
+@keyframes shape_2 {
+  40% {
+    transform: scale(0.4);
+  }
+}
+
+.preloader span:nth-child(3) {
+  position: relative;
+  border-radius: 0px;
+  transform: scale(0.98) rotate(-45deg);
+}
+
+@keyframes shape_3 {
+  50% {
+    border-radius: 100%;
+    transform: scale(0.5) rotate(-45deg);
+  }
+
+  100% {
+    transform: scale(0.98) rotate(-45deg);
+  }
+}
+
+.shadow {
+  position: relative;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  height: 16px;
+  width: 64px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+  animation: shadow 2.3s cubic-bezier(0.75, 0, 0.5, 1) infinite;
+}
+
+@keyframes shadow {
+  50% {
+    transform: translateX(-50%) scale(0.5);
+    border-color: #f2f2f2;
+  }
+}
+
 .card {
     width: calc(585px * 1.1);
     height: calc(855px * 1.1);
@@ -52,7 +149,9 @@
 .img {
     height:calc(855px * 1.1);
     border-radius: calc(20px * 1.1);
+
     position: absolute;
+    transition: 0.2s ease-in-out;
     z-index: 1;
 }
 

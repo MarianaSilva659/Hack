@@ -34,26 +34,24 @@ export default {
     methods: {
         voltarInicial() {
             this.$router.push('/');
+        },
+        verificarTotalENumPessoasGrupo() {
+            if (this.total === this.numPessoasGrupo) {
+                this.$router.push('/pagPrincipal');
+            }
         }
     },
     watch: {
-        total(newValue) {
+        total() {
             this.verificarTotalENumPessoasGrupo();
         },
-        numPessoasGrupo(newValue) {
+        numPessoasGrupo() {
             this.verificarTotalENumPessoasGrupo();
         }
     },
     mounted() {
         this.verificarTotalENumPessoasGrupo();
     },
-    methods: {
-        verificarTotalENumPessoasGrupo() {
-            if (this.total === this.numPessoasGrupo) {
-                this.$router.push('/pagPrincipal');
-            }
-        }
-    }
 }
 </script>
 
