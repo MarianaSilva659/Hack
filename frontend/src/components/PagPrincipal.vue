@@ -4,7 +4,8 @@
             <img src="../assets/logo.jpeg" alt="Logo" class="w3-image" ref="imag">
         </div>
     </header>
-
+<div> <h1 class="fas fa-times" style="position:absolute;font-size: 100px ;left: 20%;  top: 50%; transform: translateY(-50%); font-weight: bold ;color: #f23f3f;" aria-role="presentation" aria-label="CROSS MARK">X</h1>
+</div>
     <div class="centered">
         <div 
         class="card" 
@@ -41,6 +42,7 @@
 </template>
 
 <style scoped>
+
 .container {
   position: absolute;
   top: 50%;
@@ -123,7 +125,6 @@
   border-radius: 50%;
   background-color: #d9d9d9;
   border: 1px solid #d9d9d9;
-  animation: shadow 2.3s cubic-bezier(0.75, 0, 0.5, 1) infinite;
 }
 
 @keyframes shadow {
@@ -195,7 +196,6 @@
 .card:hover > .img {
     height: calc(65% * 1);
     filter: blur(calc(10px * 1.1));
-    animation: anim 3s infinite;
 }
 
 .centered {
