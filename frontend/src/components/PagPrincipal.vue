@@ -6,6 +6,14 @@
     </header>
 
     <div class="centered">
+        <div 
+        class="card" 
+        ref="card"
+        @mousedown="handleMouseDown"
+        @mousemove="handleMouseMove"
+        @mouseup="handleMouseUp"
+        @mouseleave="handleMouseUp"
+    >
         <div class="card">
             <img class="img" src="../assets/mamamia.png"alt="Sua Imagem" />
 
@@ -22,6 +30,8 @@
                 </div>
             </div>
         </div>
+    </div>
+
     </div>
 </template>
 
@@ -42,9 +52,7 @@
 .img {
     height:calc(855px * 1.1);
     border-radius: calc(20px * 1.1);
-
     position: absolute;
-    transition: 0.2s ease-in-out;
     z-index: 1;
 }
 
@@ -114,7 +122,42 @@ export default {
     },
 
     methods: {
-      
+        handleMouseDown(event) {
+            this.dragging = true;
+            this.startX = event.clientX;
+            this.startY = event.clientY;
+        },
+
+        handleMouseMove(event) {
+            if (!this.dragging) return;
+
+            const deltaX = event.clientX - this.startX;
+            const deltaY = event.clientY - this.startY;
+
+            // Adjust the card position based on deltaX and deltaY
+            const card = this.$refs.card;
+            card.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+            // Determine the direction of movement
+            const direction = this.calculateDirection(deltaX, deltaY);
+            console.log("Direction:", direction);
+
+            // Update start positions
+            this.startX = event.clientX;
+            this.startY = event.clientY;
+        },
+
+        handleMouseUp() {
+            this.dragging = false;
+        },
+
+        calculateDirection(deltaX, deltaY) {
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                return deltaX > 0 ? "right" : "left";
+            } else {
+                return deltaY > 0 ? "down" : "up";
+            }
+        }
     }
 }
 
